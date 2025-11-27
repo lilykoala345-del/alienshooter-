@@ -1,0 +1,45 @@
+import random, pyautogui, pgzrun
+WIDTH,HEIGHT= pyautogui.size()
+print (pyautogui.size())
+TITLE="banana shooter"
+player=Actor("monkey02")
+player.pos=WIDTH//2,HEIGHT-150
+by=-HEIGHT
+foes=[]
+def draw():
+    screen.blit("jungle02",(0,by))
+    player.draw()
+    for i in foes:
+        i .draw()
+
+
+def update():
+    global by
+    
+    by+=1
+    if by >0:
+        by=-HEIGHT
+    if keyboard.left:
+        player.x-=10
+    elif keyboard.right:
+        player.x+=10
+    
+    if player.x<0:
+        player.x=WIDTH
+    if player.x>WIDTH:
+        player.x=0
+    for i in foes:
+        i.y+=5
+        if i.y>HEIGHT:
+           foes.remove(i)
+
+
+
+def foe():
+    foe=Actor("lion01")
+    foe.pos=random.randint(50,WIDTH-50),0
+    foes.append(foe)
+
+clock.schedule_interval(foe,5.0)
+
+pgzrun.go()
